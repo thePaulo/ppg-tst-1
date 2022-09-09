@@ -38,49 +38,5 @@ public class BankAccountTest {
     public void testDepositShouldNotBeZeroOrNegativeValue(double value){
         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(value));
     }
-
-    @ParameterizedTest
-    @ValueSource(ints = {0, -10, -5, -3, -15})
-    public void testInvalidValueToWithdraw(double value){
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(value));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {110, 1000, 534, 341, 94823})
-    public void testNotEnoughBalanceToWithdraw(double value){
-        bankAccount.deposit(100);
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(value));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {0, -10, -5, -3, -15})
-    public void testInvalidValueToTransfer(double value){
-        BankAccount newBankAccount = fixture.getNewBankAccount();
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(newBankAccount,value));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {110, 1000, 534, 341, 94823})
-    public void testNotEnoughBalanceToTransfer(double value){
-        BankAccount newBankAccount = fixture.getNewBankAccount();
-        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(newBankAccount,value));
-    }
-
-    @Test
-    public void testWithdrawWithBalance(){
-        bankAccount.deposit(100);
-        bankAccount.withdraw(10);
-        assertEquals(90,bankAccount.getBalance());
-    }
-
-    @Test
-    public void testTransferWithBalance(){
-        bankAccount.deposit(100);
-        BankAccount newBankAccount = fixture.getNewBankAccount();
-        bankAccount.transfer(newBankAccount,50);
-
-        assertEquals(50,bankAccount.getBalance());
-        assertEquals(50,newBankAccount.getBalance());
-    }
 }
 

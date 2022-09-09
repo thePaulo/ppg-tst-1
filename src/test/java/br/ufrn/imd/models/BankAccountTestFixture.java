@@ -1,10 +1,12 @@
 package br.ufrn.imd.models;
 
+import java.util.UUID;
+
 public class BankAccountTestFixture {
     private BankAccount bankAccount;
 
-    protected BankAccountTestFixture() {
-        bankAccount = new BankAccount(123456, 123, 0);
+    public BankAccountTestFixture() {
+        bankAccount = new BankAccount(UUID.randomUUID().toString(), 123456, 123, 0);
     }
 
     public BankAccount getBankAccount() {

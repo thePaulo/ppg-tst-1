@@ -1,34 +1,51 @@
 package br.ufrn.imd.models;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.UUID;
 
 public class BankAccount {
-    private long accountNumber;
+
+    private final String id;
+    private int accountNumber;
     private int agency;
     private double balance;
 
     public BankAccount() {
-        this.accountNumber = 0;
-        this.agency = 0;
-        this.balance = 0;
+        this.id = UUID.randomUUID().toString();
     }
 
-    public BankAccount(long accountNumber, int agency, double balance) {
+    public BankAccount(String uuid, int accountNumber, int agency, double balance) {
+        this.id = uuid;
         this.accountNumber = accountNumber;
         this.agency = agency;
         this.balance = balance;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public int getAgency() {
         return agency;
     }
 
-    public long getAccountNumber() {
+    public int getAccountNumber() {
         return accountNumber;
     }
 
     public double getBalance() {
         return balance;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void setAgency(int agency) {
+        this.agency = agency;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public void deposit(double value) {
@@ -37,31 +54,13 @@ public class BankAccount {
     }
 
     public void withdraw(double value){
-        //TODO.: se o valor for menor igual a zero, lançar uma exceção
-        //TODO.: se a conta não tiver saldo suficiente, lançar uma exceção
-        //TODO.: se a conta tiver saldo suficiente, debitar o valor do saldo
-        if(value <= 0){
-            throw new IllegalArgumentException();
-        }
-        if(this.balance < value){
-            throw new IllegalArgumentException();
-        }
-
+        if (value <= 0) throw new IllegalArgumentException();
+        if(this.balance < value) throw new IllegalArgumentException();
         this.balance -= value;
     }
 
     public void transfer(BankAccount beneficiaryAccount, double value){
-        //TODO.: se o valor for menor igual a zero, lançar uma exceção
-        //TODO.: se a conta não tiver saldo suficiente, lançar uma exceção
-        //TODO.: se a conta tiver saldo suficiente, debitar o valor do saldo e realizar deposito
-        // na BankAccount beneficiaryAccount
-        if(value <= 0){
-            throw new IllegalArgumentException();
-        }
-        if(this.balance < value){
-            throw new IllegalArgumentException();
-        }
+        this.withdraw(value);
         beneficiaryAccount.deposit(value);
-        this.balance -= value;
     }
 }

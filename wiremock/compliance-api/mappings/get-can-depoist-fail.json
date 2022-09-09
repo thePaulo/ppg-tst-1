@@ -1,0 +1,9 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/compliance/account/690713d9-0deb-4ab3-a978-a9b15571052d/deposit"
+  },
+  "response": {
+    "status": 401
+  }
+}
